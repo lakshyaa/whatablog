@@ -13,7 +13,7 @@ public class UserBlogger {
 
     private String userName;
 
-    @OneToMany(mappedBy = "userBlogger",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userBlogger",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Post> posts=new ArrayList<>();
 
 

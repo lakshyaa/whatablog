@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,9 +20,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.awt.*;
 import java.util.logging.Logger;
+/*
+
+Class take Care of User Registration and User Login.
+ */
 
 @RestController
 public class UserLoginController {
+
 
     @Autowired
     private UserBloggerRepositoryImpl userBloggerRepository;
@@ -33,7 +39,7 @@ public class UserLoginController {
         log.info("saving the new user----------------------------------->");
         if (checkUserNameIfPresent(user) == null) {
             userBloggerRepository.save(user);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("All good Successfully Registered!");
+            return ResponseEntity.status(HttpStatus.OK).body("All good Successfully Registered!");
         }
         else
             return ResponseEntity.status(HttpStatus.CONFLICT).body("userName already present!");
@@ -55,7 +61,8 @@ public class UserLoginController {
         if (found != null) {
 
             if (found.getPassword() .equals(user.getPassword())) {
-                return  ResponseEntity.status(HttpStatus.ACCEPTED).body("Successfull Authentication !");
+
+                return  ResponseEntity.status(HttpStatus.OK).body("Successfull Authentication !");
             }
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Credentials are not correct");
