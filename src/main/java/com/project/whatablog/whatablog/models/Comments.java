@@ -1,5 +1,8 @@
 package com.project.whatablog.whatablog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +12,7 @@ public class Comments {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @JsonIgnore
     @ManyToOne
     private Post post;
 
@@ -38,15 +42,16 @@ public class Comments {
 
     private String message;
 
-    public long getUserid() {
-        return userid;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserid(long userid) {
-        this.userid = userid;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    private long userid;
+    private String userName;
 
 
 }

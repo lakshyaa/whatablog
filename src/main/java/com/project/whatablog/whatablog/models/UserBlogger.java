@@ -1,5 +1,7 @@
 package com.project.whatablog.whatablog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,32 @@ public class UserBlogger {
 
     private String userName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userBlogger",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Post> posts=new ArrayList<>();
 
+   /* public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+*/
+   /* public long getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(long phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
 
+
+    private long phoneNo;
+*/
     public int getId() {
         return id;
     }

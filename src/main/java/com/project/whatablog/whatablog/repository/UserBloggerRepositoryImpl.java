@@ -10,6 +10,8 @@ public class UserBloggerRepositoryImpl  {
     @Autowired
     private  UserBloggerRepository repository;
 
+
+
     public UserBlogger findByUserName(String name) {
 
         return repository.findFirstByUserName(name);

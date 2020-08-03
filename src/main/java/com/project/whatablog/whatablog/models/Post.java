@@ -1,5 +1,8 @@
 package com.project.whatablog.whatablog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
@@ -77,10 +80,13 @@ public class Post {
         this.userBlogger = userBlogger;
     }
 
+
     @ManyToOne
     private UserBlogger userBlogger;
 
     private Integer likes;
+
+
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Comments> comments=new ArrayList<>();

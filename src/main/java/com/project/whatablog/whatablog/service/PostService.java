@@ -1,10 +1,12 @@
 package com.project.whatablog.whatablog.service;
 
+import com.project.whatablog.whatablog.models.Comments;
 import com.project.whatablog.whatablog.models.Post;
 import com.project.whatablog.whatablog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,18 +14,21 @@ import java.util.logging.Logger;
 public class PostService {
 
     @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
-    Logger log=Logger.getLogger("PostService.class");
+    @Autowired
+    private CommentService commentService;
 
-    public Post updatePostWithLikes(Long id)
-    {
 
-        Post post= postRepository.findById(id);
+    Logger log = Logger.getLogger("PostService.class");
 
-        log.info("post came -------------->"+post+"po");
+    public Post updatePostWithLikes(Long id) {
 
-        if(post.getLikes()==null)
+        Post post = postRepository.findById(id);
+
+        log.info("post came -------------->" + post + "po");
+
+        if (post.getLikes() == null)
             post.setLikes(1);
 
         else {
@@ -32,8 +37,25 @@ public class PostService {
             post.setLikes(likes);
         }
 
-          return postRepository.save(post);
+        return postRepository.save(post);
     }
 
+    public Post updatePostWithComment(Long id, Comments comment) {
+        Post post = postRepository.findById(id);
+        log.info("adding comment ----------------->" + post);
+
+        comment=commentService.save(comment);
+        comment.setPost(post);
+        if (post.getComments() == null) {
+            ArrayList<Comments> comments = new ArrayList<>();
+            comments.add(comment);
+            post.setComments(comments);
+        } else {
+
+        post.getComments().add(comment);
+        }
+
+        return postRepository.save(post);
+    }
 
 }
